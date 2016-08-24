@@ -15,11 +15,73 @@
 # limitations under the License.
 #
 import webapp2
+from caesar import encrypt
+
+page_header = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ceasar</title>
+    <style type = "text">
+    </style>
+</head>
+<body>
+    <h1>
+        <a href = "/">Caesar</a>
+    </h1>
+"""
+page_footer = """
+</body>
+</html>
+"""
+
+
 
 class MainHandler(webapp2.RequestHandler):
+    """Handles requests"""
     def get(self):
-        self.response.write('Hello world!')
+        #edit_header = "<h1>Caesar Cipher</h1>"
+        #add the form
+        add_form = """
+        <form action = "/add" method = "post">
+            <label>
+                <h1>Ceasar</h1>
+                <br>
+                Rotate by:
+                <input type = "text" name = "rotate"/>
+            </label>
+            <br>
+            <br>
+            <br>
+            <label>
+                Text:
+                <input type = "text" name = "text" style = "height:150px; width:300px"/>
+            </label>
+            <br>
+            <br>
+            <br>
+            <input type = "submit" value = "Submit"/>
+        </form>
+        """
+        self.response.write(add_form)
+
+
+
+
+class CaesarCipher(webapp2.RequestHandler):
+    """Takes care of cipher"""
+    def post(self):
+        #looks to see what the user typed
+        a = str(answer)
+        final = "<p>%s</p>"%a
+        self.response.write(final)
+
+
+
+
+
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/cipher', CaesarCipher)
 ], debug=True)
