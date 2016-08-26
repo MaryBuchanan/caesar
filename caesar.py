@@ -12,11 +12,11 @@ def rotate_char(char, rotate):
         return char
 
     alphabet = ALPHABET_LOWERCASE if char.islower() else ALPHABET_UPPERCASE
-    new_pos = (alphabet_position(char) + rotation) % 26
+    new_pos = (int(alphabet_position(char)) + int(rotate)) % 26
     return alphabet[new_pos]
 
 def encrypt(text, rotate):
     answer = ""
     for char in text:
-        answer += rotate_char(char, rotation)
+        answer += rotate_char(char, rotate)
     return answer

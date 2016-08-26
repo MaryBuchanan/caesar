@@ -42,10 +42,11 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         #edit_header = "<h1>Caesar Cipher</h1>"
         #add the form
+        cipher = self.request.get("cipher")
+
         add_form = """
-        <form action = "/add" method = "post">
+        <form action = "/cipher" method = "post">
             <label>
-                <h1>Ceasar</h1>
                 <br>
                 Rotate by:
                 <input type = "text" name = "rotate"/>
@@ -55,31 +56,24 @@ class MainHandler(webapp2.RequestHandler):
             <br>
             <label>
                 Text:
-                <input type = "text" name = "text" style = "height:150px; width:300px"/>
+                <input type = "text" name = "text" style = "height:150px; width:300px" value="{}"/>
             </label>
             <br>
             <br>
             <br>
             <input type = "submit" value = "Submit"/>
         </form>
-        """
-        self.response.write(add_form)
-
-
-
+        """.format(cipher)
+        self.response.write(page_header + add_form + page_footer)
 
 class CaesarCipher(webapp2.RequestHandler):
     """Takes care of cipher"""
     def post(self):
         #looks to see what the user typed
-        a = str(answer)
-        final = "<p>%s</p>"%a
-        self.response.write(final)
-
-
-
-
-
+        text = self.request.get("text")
+        rotate = self.request.get("rotate")
+        cipher = encrypt(text, rotate)
+        self.redirect("/?cipher={}".format(cipher))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
